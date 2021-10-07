@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch movie By serach</title>
+    <style>
+       body{
+           width:90%;
+           margin: auto;
+           background-color: rgb(12, 5, 49);
+       }
+       input{
+           border: none;
+           width:50%;
+           margin-top: 30px;
+           height: 30px;
+           border-bottom: 3px solid green;
+           background:rgb(226, 219, 219);
+           color:rgb(38, 0, 255);border-radius: 10px;
+
+       }
+       button{
+           width:100px;
+           padding-top: 6px;
+           padding-bottom: 6px;
+           border: none;
+           border-bottom:2px solid rgb(255, 0, 242);
+           border-radius: 3px;
+       }
+       button:hover{
+           background:rgb(255, 0, 242);
+           transition: 1s;
+       }
+       img{
+           width:150px;
+         height:150px;
+           background-size: cover;
+       }
+       .container{
+           margin-top: 30px;
+       }
+       .container>div{
+           color:antiquewhite;
+           display: flex;
+       }
+       .container>div>h3,.container>div>img{
+         border: 1px solid rgb(57, 57, 58);
+       }
+       video{
+           width: 50%;
+       }
+    </style>
+</head>
+<body>
+    <div>
+    
+            <input type="text" id="movie" placeholder="serach Movie">
+      <button>search</button>
+    </div>
+    <div class="container">
+        <video autoplay muted loop id="myVideo">
+              <source src="https://i.makeagif.com/media/11-04-2015/mfnzwt.mp4" type="video/mp4">
+               Your browser does not support HTML5 video.
+         </video>
+    </div>
+    <script type="text/javascript">
+    document.getElementById("myVideo").style.display="none"
+    document.querySelector('button').addEventListener('click',()=>{
+        let movieName=document.querySelector('input').value;
+        if(!movieName){
+            alert("enter movie name!!")
+        return;
+        }
+        
+        fetch(`https://www.omdbapi.com/?t=${movieName}&i=tt3896198&apikey=7aea46a4`)
+    .then((Response)=>{
+        console.log(Response)
+        return Response.json();
+       
+    })
+    .then((Response)=>{
+        console.log(Response)
+        getDetais(Response);
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+    })
+    let getDetais=(movie)=>{
+        if(!movie.Poster)
+        {
+            // alert("MOVIE NOT FOUND!!");
+//             <video autoplay muted loop id="myVideo">
+//   <source src="rain.mp4" type="video/mp4">
+//   Your browser does not support HTML5 video.
+// </video>
+document.getElementById("myVideo").style.display="block"
+// let video=document.createElement('video');
+// video.setAttribute("autoplay","true")
+// video.setAttribute("muted","true");
+// video.setAttribute("muted","true");
+// let source=document.createElement('source');
+// source.setAttribute("src","https://i.makeagif.com/media/11-04-2015/mfnzwt.mp4")
+// source.setAttribute("type","video/mp4");
+// video.appendChild(source)
+//             document.querySelector('.container').innerHTML=video;
+            return 
+        }
+//         Actors: "Leonardo DiCaprio, Kate Winslet, Billy Zane"
+// Awards: "Won 11 Oscars. 125 wins & 83 nominations total"
+// BoxOffice: "$659,363,944"
+// Country: "United States, Mexico, Australia"
+// DVD: "08 Jan 2002"
+// Director: "James Cameron"
+// Genre: "Drama, Romance"
+// Language: "English, Swedish, Italian, French"
+// Metascore: "75"
+// Plot: "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic."
+// Poster: "https://m.media-amazon.com/images/M/MV5BMDdmZGU3NDQtY2E5My00ZTliLWIzOTUtMTY4ZGI1YjdiNjk3XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg"
+// Production: "20th Century Fox, Lightstorm Entertainment, Paramount Pictures"
+// Rated: "PG-13"
+// Ratings: (3) [{…}, {…}, {…}]
+// Released: "19 Dec 1997"
+// Response: "True"
+// Runtime: "194 min"
+// Title: "Titanic"
+// Type: "movie"
+// Website: "N/A"
+// Writer: "James Cameron"
+// Year: "1997"
+// imdbID: "tt0120338"
+// imdbRating: "7.8"
+// imdbVotes: "1,092,075"
+document.querySelector('.container').innerHTML=null
+        let div=document.createElement('div');
+        let poster=document.createElement('img');
+        poster.setAttribute('src',movie.Poster);
+        poster.setAttribute('alt','poster is not provided by the source')
+        let title=document.createElement('h3');
+        title.textContent="name: "+movie.Title;
+        let releasedate=document.createElement('h3');
+        releasedate.textContent="Release Date: "+movie.Released;
+        let actors=document.createElement('h3');
+        actors.textContent="Actors: "+movie.Actors;
+        let awards=document.createElement('h3');
+        awards.textContent="Awards: "+movie.Awards;
+        let boxOffice=document.createElement('h3');
+        boxOffice.textContent="BOx office: "+movie.BoxOffice;
+        let country=document.createElement('h3');
+        country.textContent="Country: "+movie.Country;
+        let lang=document.createElement('h3');
+        lang.textContent="Language: "+movie.Language;
+        let ratings=document.createElement('h3');
+        ratings.textContent="Ratings: "+movie.imdbRating;
+        div.appendChild(poster)
+        div.appendChild(title)
+        div.appendChild(releasedate)
+        div.appendChild(actors)
+        div.appendChild(awards)
+        div.appendChild(boxOffice)
+        div.appendChild(country)
+        div.appendChild(lang)
+        div.appendChild(ratings)
+        
+        document.querySelector('.container').appendChild(div)
+    }
+
+    
+    </script>
+</body>
+</html>
