@@ -51,6 +51,12 @@
        video{
            width: 50%;
        }
+       .show{
+           display:block
+       }
+       .hide{
+           display: none;
+       }
     </style>
 </head>
 <body>
@@ -60,13 +66,9 @@
       <button>search</button>
     </div>
     <div class="container">
-        <video autoplay muted loop id="myVideo">
-              <source src="https://i.makeagif.com/media/11-04-2015/mfnzwt.mp4" type="video/mp4">
-               Your browser does not support HTML5 video.
-         </video>
+        
     </div>
     <script type="text/javascript">
-    document.getElementById("myVideo").style.display="none"
     document.querySelector('button').addEventListener('click',()=>{
         let movieName=document.querySelector('input').value;
         if(!movieName){
@@ -96,7 +98,11 @@
 //   <source src="rain.mp4" type="video/mp4">
 //   Your browser does not support HTML5 video.
 // </video>
-document.getElementById("myVideo").style.display="block"
+document.querySelector('.container').innerHTML=`<video autoplay muted loop id="myVideo">
+              <source src="https://i.makeagif.com/media/11-04-2015/mfnzwt.mp4" type="video/mp4">
+               Your browser does not support HTML5 video.
+         </video>`
+document.getElementById("myVideo").setAttribute("class","show")
 // let video=document.createElement('video');
 // video.setAttribute("autoplay","true")
 // video.setAttribute("muted","true");
@@ -154,6 +160,15 @@ document.querySelector('.container').innerHTML=null
         lang.textContent="Language: "+movie.Language;
         let ratings=document.createElement('h3');
         ratings.textContent="Ratings: "+movie.imdbRating;
+        if(Number(movie.imdbRating)>8){
+            let div=document.createElement('div');
+            div.textContent="recomended for you"
+            ratings.style.backgroundColor="green"; 
+            ratings.appendChild(div)
+        }
+        else{
+            ratings.style.backgroundColor="tomato";
+        }
         div.appendChild(poster)
         div.appendChild(title)
         div.appendChild(releasedate)
